@@ -20,6 +20,27 @@ export const getESGReportById = async (id) => {
 export const createESGReport = async (reportData) => {
   await addDelay(800)
   
+  // Calculate ESG scores based on input data
+  const environmentalScore = Math.min(100, Math.max(0, 
+    (parseFloat(reportData.renewableEnergy) * 0.4) + 
+    (Math.max(0, 100 - (parseFloat(reportData.carbonEmissions) / 100)) * 0.6)
+  ))
+  
+  const socialScore = Math.min(100, Math.max(0,
+    (parseFloat(reportData.employeeSatisfaction) * 10 * 0.3) +
+    (parseFloat(reportData.diversityRatio) * 0.3) +
+    (Math.max(0, 100 - parseFloat(reportData.safetyIncidents)) * 0.4)
+  ))
+  
+  const governanceScore = Math.min(100, Math.max(0,
+    (parseFloat(reportData.boardIndependence) * 0.25) +
+    (parseFloat(reportData.ethicsTraining) * 0.25) +
+    (parseFloat(reportData.transparencyScore) * 0.25) +
+    (parseFloat(reportData.stakeholderEngagement) * 10 * 0.25)
+  ))
+  
+  const overallESGScore = Math.round((environmentalScore + socialScore + governanceScore) / 3)
+  
   const newReport = {
     Id: Math.max(...reports.map(r => r.Id), 0) + 1,
     companyName: reportData.companyName,
@@ -28,12 +49,30 @@ export const createESGReport = async (reportData) => {
     status: "pending",
     hash: `0x${Math.random().toString(16).substring(2, 66)}`,
     metrics: {
-      esgScore: Math.floor(Math.random() * 20) + 70,
+      esgScore: overallESGScore,
+      environmentalScore: Math.round(environmentalScore),
+      socialScore: Math.round(socialScore),
+      governanceScore: Math.round(governanceScore),
+      // Environmental metrics
       carbonEmissions: parseFloat(reportData.carbonEmissions),
       energyConsumption: parseFloat(reportData.energyConsumption),
       wasteGenerated: parseFloat(reportData.wasteGenerated),
       waterUsage: parseFloat(reportData.waterUsage),
-      renewableEnergy: parseFloat(reportData.renewableEnergy)
+      renewableEnergy: parseFloat(reportData.renewableEnergy),
+      // Social metrics
+      totalEmployees: parseInt(reportData.totalEmployees),
+      employeeSatisfaction: parseFloat(reportData.employeeSatisfaction),
+      diversityRatio: parseFloat(reportData.diversityRatio),
+      safetyIncidents: parseInt(reportData.safetyIncidents),
+      communityInvestment: parseFloat(reportData.communityInvestment),
+      trainingHours: parseFloat(reportData.trainingHours),
+      // Governance metrics
+      boardIndependence: parseFloat(reportData.boardIndependence),
+      ethicsTraining: parseFloat(reportData.ethicsTraining),
+      complianceViolations: parseInt(reportData.complianceViolations),
+      transparencyScore: parseFloat(reportData.transparencyScore),
+      auditFrequency: parseInt(reportData.auditFrequency),
+      stakeholderEngagement: parseFloat(reportData.stakeholderEngagement)
     }
   }
   

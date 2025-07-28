@@ -21,14 +21,29 @@ const ESGReports = () => {
   const [showCreateForm, setShowCreateForm] = useState(false)
   const [creating, setCreating] = useState(false)
   
-  const [formData, setFormData] = useState({
+const [formData, setFormData] = useState({
     companyName: "",
     reportType: "GRI",
+    // Environmental Metrics
     carbonEmissions: "",
     energyConsumption: "",
     wasteGenerated: "",
     waterUsage: "",
-    renewableEnergy: ""
+    renewableEnergy: "",
+    // Social Metrics
+    totalEmployees: "",
+    employeeSatisfaction: "",
+    diversityRatio: "",
+    safetyIncidents: "",
+    communityInvestment: "",
+    trainingHours: "",
+    // Governance Metrics
+    boardIndependence: "",
+    ethicsTraining: "",
+    complianceViolations: "",
+    transparencyScore: "",
+    auditFrequency: "",
+    stakeholderEngagement: ""
   })
 
   const loadReports = async () => {
@@ -67,14 +82,29 @@ const ESGReports = () => {
       setCreating(true)
       const newReport = await createESGReport(formData)
       setReports(prev => [newReport, ...prev])
-      setFormData({
+setFormData({
         companyName: "",
         reportType: "GRI",
+        // Environmental Metrics
         carbonEmissions: "",
         energyConsumption: "",
         wasteGenerated: "",
         waterUsage: "",
-        renewableEnergy: ""
+        renewableEnergy: "",
+        // Social Metrics
+        totalEmployees: "",
+        employeeSatisfaction: "",
+        diversityRatio: "",
+        safetyIncidents: "",
+        communityInvestment: "",
+        trainingHours: "",
+        // Governance Metrics
+        boardIndependence: "",
+        ethicsTraining: "",
+        complianceViolations: "",
+        transparencyScore: "",
+        auditFrequency: "",
+        stakeholderEngagement: ""
       })
       setShowCreateForm(false)
       toast.success("ESG report created and submitted to blockchain!")
@@ -146,7 +176,8 @@ const ESGReports = () => {
             />
           </div>
           
-          <form onSubmit={handleCreateReport} className="space-y-4">
+<form onSubmit={handleCreateReport} className="space-y-6">
+            {/* Company Information */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Input
                 label="Company Name"
@@ -167,51 +198,197 @@ const ESGReports = () => {
                   <option value="TCFD">TCFD Framework</option>
                 </select>
               </div>
+            </div>
+
+            {/* Environmental Metrics */}
+            <div className="space-y-4">
+              <div className="flex items-center space-x-2 pb-2 border-b border-gray-200">
+                <ApperIcon name="Leaf" size={20} className="text-green-600" />
+                <h3 className="text-lg font-semibold text-gray-900">Environmental Metrics</h3>
+              </div>
               
-              <Input
-                label="Carbon Emissions (tCO2e)"
-                type="number"
-                value={formData.carbonEmissions}
-                onChange={(e) => setFormData(prev => ({ ...prev, carbonEmissions: e.target.value }))}
-                required
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input
+                  label="Carbon Emissions (tCO2e)"
+                  type="number"
+                  value={formData.carbonEmissions}
+                  onChange={(e) => setFormData(prev => ({ ...prev, carbonEmissions: e.target.value }))}
+                  required
+                />
+                
+                <Input
+                  label="Energy Consumption (MWh)"
+                  type="number"
+                  value={formData.energyConsumption}
+                  onChange={(e) => setFormData(prev => ({ ...prev, energyConsumption: e.target.value }))}
+                  required
+                />
+                
+                <Input
+                  label="Waste Generated (tons)"
+                  type="number"
+                  value={formData.wasteGenerated}
+                  onChange={(e) => setFormData(prev => ({ ...prev, wasteGenerated: e.target.value }))}
+                  required
+                />
+                
+                <Input
+                  label="Water Usage (m³)"
+                  type="number"
+                  value={formData.waterUsage}
+                  onChange={(e) => setFormData(prev => ({ ...prev, waterUsage: e.target.value }))}
+                  required
+                />
+                
+                <Input
+                  label="Renewable Energy Percentage (%)"
+                  type="number"
+                  min="0"
+                  max="100"
+                  value={formData.renewableEnergy}
+                  onChange={(e) => setFormData(prev => ({ ...prev, renewableEnergy: e.target.value }))}
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Social Metrics */}
+            <div className="space-y-4">
+              <div className="flex items-center space-x-2 pb-2 border-b border-gray-200">
+                <ApperIcon name="Users" size={20} className="text-blue-600" />
+                <h3 className="text-lg font-semibold text-gray-900">Social Metrics</h3>
+              </div>
               
-              <Input
-                label="Energy Consumption (MWh)"
-                type="number"
-                value={formData.energyConsumption}
-                onChange={(e) => setFormData(prev => ({ ...prev, energyConsumption: e.target.value }))}
-                required
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input
+                  label="Total Employees"
+                  type="number"
+                  value={formData.totalEmployees}
+                  onChange={(e) => setFormData(prev => ({ ...prev, totalEmployees: e.target.value }))}
+                  required
+                />
+                
+                <Input
+                  label="Employee Satisfaction Score (1-10)"
+                  type="number"
+                  min="1"
+                  max="10"
+                  step="0.1"
+                  value={formData.employeeSatisfaction}
+                  onChange={(e) => setFormData(prev => ({ ...prev, employeeSatisfaction: e.target.value }))}
+                  required
+                />
+                
+                <Input
+                  label="Gender Diversity Ratio (%)"
+                  type="number"
+                  min="0"
+                  max="100"
+                  value={formData.diversityRatio}
+                  onChange={(e) => setFormData(prev => ({ ...prev, diversityRatio: e.target.value }))}
+                  required
+                />
+                
+                <Input
+                  label="Safety Incidents (per year)"
+                  type="number"
+                  min="0"
+                  value={formData.safetyIncidents}
+                  onChange={(e) => setFormData(prev => ({ ...prev, safetyIncidents: e.target.value }))}
+                  required
+                />
+                
+                <Input
+                  label="Community Investment ($)"
+                  type="number"
+                  min="0"
+                  value={formData.communityInvestment}
+                  onChange={(e) => setFormData(prev => ({ ...prev, communityInvestment: e.target.value }))}
+                  required
+                />
+                
+                <Input
+                  label="Training Hours per Employee"
+                  type="number"
+                  min="0"
+                  step="0.5"
+                  value={formData.trainingHours}
+                  onChange={(e) => setFormData(prev => ({ ...prev, trainingHours: e.target.value }))}
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Governance Metrics */}
+            <div className="space-y-4">
+              <div className="flex items-center space-x-2 pb-2 border-b border-gray-200">
+                <ApperIcon name="Shield" size={20} className="text-purple-600" />
+                <h3 className="text-lg font-semibold text-gray-900">Governance Metrics</h3>
+              </div>
               
-              <Input
-                label="Waste Generated (tons)"
-                type="number"
-                value={formData.wasteGenerated}
-                onChange={(e) => setFormData(prev => ({ ...prev, wasteGenerated: e.target.value }))}
-                required
-              />
-              
-              <Input
-                label="Water Usage (m³)"
-                type="number"
-                value={formData.waterUsage}
-                onChange={(e) => setFormData(prev => ({ ...prev, waterUsage: e.target.value }))}
-                required
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input
+                  label="Board Independence (%)"
+                  type="number"
+                  min="0"
+                  max="100"
+                  value={formData.boardIndependence}
+                  onChange={(e) => setFormData(prev => ({ ...prev, boardIndependence: e.target.value }))}
+                  required
+                />
+                
+                <Input
+                  label="Ethics Training Completion (%)"
+                  type="number"
+                  min="0"
+                  max="100"
+                  value={formData.ethicsTraining}
+                  onChange={(e) => setFormData(prev => ({ ...prev, ethicsTraining: e.target.value }))}
+                  required
+                />
+                
+                <Input
+                  label="Compliance Violations (per year)"
+                  type="number"
+                  min="0"
+                  value={formData.complianceViolations}
+                  onChange={(e) => setFormData(prev => ({ ...prev, complianceViolations: e.target.value }))}
+                  required
+                />
+                
+                <Input
+                  label="Transparency Score (1-100)"
+                  type="number"
+                  min="1"
+                  max="100"
+                  value={formData.transparencyScore}
+                  onChange={(e) => setFormData(prev => ({ ...prev, transparencyScore: e.target.value }))}
+                  required
+                />
+                
+                <Input
+                  label="Audit Frequency (per year)"
+                  type="number"
+                  min="1"
+                  value={formData.auditFrequency}
+                  onChange={(e) => setFormData(prev => ({ ...prev, auditFrequency: e.target.value }))}
+                  required
+                />
+                
+                <Input
+                  label="Stakeholder Engagement Score (1-10)"
+                  type="number"
+                  min="1"
+                  max="10"
+                  step="0.1"
+                  value={formData.stakeholderEngagement}
+                  onChange={(e) => setFormData(prev => ({ ...prev, stakeholderEngagement: e.target.value }))}
+                  required
+                />
+              </div>
             </div>
             
-            <Input
-              label="Renewable Energy Percentage (%)"
-              type="number"
-              min="0"
-              max="100"
-              value={formData.renewableEnergy}
-              onChange={(e) => setFormData(prev => ({ ...prev, renewableEnergy: e.target.value }))}
-              required
-            />
-            
-            <div className="flex justify-end space-x-3 pt-4">
+            <div className="flex justify-end space-x-3 pt-6 border-t border-gray-200">
               <Button
                 type="button"
                 variant="outline"
