@@ -1,0 +1,146 @@
+[
+  {
+    "Id": 1,
+    "productId": "SH-2024-001",
+    "productName": "Organic Coffee Beans",
+    "origin": "Colombia",
+    "destination": "Hamburg, Germany",
+    "departureTime": 1703030400000,
+    "estimatedArrival": 1703462400000,
+    "status": "delivered",
+    "progress": 100,
+    "weight": 2500,
+    "verified": true,
+    "sensors": {
+      "temperature": 18,
+      "humidity": 42,
+      "location": "online"
+    }
+  },
+  {
+    "Id": 2,
+    "productId": "SH-2024-002",
+    "productName": "Solar Panel Components",
+    "origin": "Shanghai, China",
+    "destination": "Los Angeles, USA",
+    "departureTime": 1703116800000,
+    "estimatedArrival": 1703635200000,
+    "status": "in_transit",
+    "progress": 65,
+    "weight": 5800,
+    "verified": true,
+    "sensors": {
+      "temperature": 22,
+      "humidity": 38,
+      "location": "online"
+    }
+  },
+  {
+    "Id": 3,
+    "productId": "SH-2024-003",
+    "productName": "Recycled Textiles",
+    "origin": "Mumbai, India",
+    "destination": "London, UK",
+    "departureTime": 1703203200000,
+    "estimatedArrival": 1703721600000,
+    "status": "departed",
+    "progress": 25,
+    "weight": 1200,
+    "verified": false,
+    "sensors": {
+      "temperature": 25,
+      "humidity": 55,
+      "location": "online"
+    }
+  },
+  {
+    "Id": 4,
+    "productId": "SH-2024-004",
+    "productName": "Sustainable Electronics",
+    "origin": "Seoul, South Korea",
+    "destination": "Amsterdam, Netherlands",
+    "departureTime": 1703289600000,
+    "estimatedArrival": 1703808000000,
+    "status": "in_transit",
+    "progress": 80,
+    "weight": 3400,
+    "verified": true,
+    "sensors": {
+      "temperature": 20,
+      "humidity": 40,
+      "location": "online"
+    }
+  },
+  {
+    "Id": 5,
+    "productId": "SH-2024-005",
+    "productName": "Bamboo Products",
+    "origin": "Bangkok, Thailand",
+    "destination": "Sydney, Australia",
+    "departureTime": 1703376000000,
+    "estimatedArrival": 1703808000000,
+    "status": "pending",
+    "progress": 0,
+    "weight": 800,
+    "verified": false,
+    "sensors": {
+      "temperature": 28,
+      "humidity": 60,
+      "location": "offline"
+    }
+  },
+  {
+    "Id": 6,
+    "productId": "SH-2024-006",
+    "productName": "Organic Spices",
+    "origin": "Kochi, India",
+    "destination": "New York, USA",
+    "departureTime": 1703462400000,
+    "estimatedArrival": 1703980800000,
+    "status": "delivered",
+    "progress": 100,
+    "weight": 450,
+    "verified": true,
+    "sensors": {
+      "temperature": 15,
+      "humidity": 35,
+      "location": "online"
+    }
+  },
+  {
+    "Id": 7,
+    "productId": "SH-2024-007",
+    "productName": "Green Building Materials",
+    "origin": "São Paulo, Brazil",
+    "destination": "Toronto, Canada",
+    "departureTime": 1703548800000,
+    "estimatedArrival": 1704067200000,
+    "status": "in_transit",
+    "progress": 45,
+    "weight": 7200,
+    "verified": true,
+    "sensors": {
+      "temperature": 19,
+      "humidity": 48,
+      "location": "online"
+    }
+  },
+  {
+    "Id": 8,
+    "productId": "SH-2024-008",
+    "productName": "Sustainable Packaging",
+    "origin": "Stockholm, Sweden",
+    "destination": "Tokyo, Japan",
+    "departureTime": 1703635200000,
+    "estimatedArrival": 1704153600000,
+    "status": "departed",
+    "progress": 15,
+    "weight": 1800,
+    "verified": false,
+    "sensors": {
+      "temperature": 12,
+      "humidity": 45,
+      "location": "online"
+    }
+  }
+]

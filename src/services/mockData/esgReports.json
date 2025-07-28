@@ -1,0 +1,98 @@
+[
+  {
+    "Id": 1,
+    "companyName": "GreenTech Industries",
+    "reportType": "GRI",
+    "timestamp": 1703030400000,
+    "status": "verified",
+    "hash": "0xa1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
+    "metrics": {
+      "esgScore": 88,
+      "carbonEmissions": 1250.5,
+      "energyConsumption": 2340.8,
+      "wasteGenerated": 45.2,
+      "waterUsage": 1800.3,
+      "renewableEnergy": 65
+    }
+  },
+  {
+    "Id": 2,
+    "companyName": "Sustainable Manufacturing Co",
+    "reportType": "SASB",
+    "timestamp": 1702425600000,
+    "status": "verified",
+    "hash": "0xb2c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678",
+    "metrics": {
+      "esgScore": 92,
+      "carbonEmissions": 890.2,
+      "energyConsumption": 1980.5,
+      "wasteGenerated": 32.8,
+      "waterUsage": 1450.7,
+      "renewableEnergy": 78
+    }
+  },
+  {
+    "Id": 3,
+    "companyName": "EcoLogistics Ltd",
+    "reportType": "TCFD",
+    "timestamp": 1701820800000,
+    "status": "pending",
+    "hash": "0xc3d4e5f6789012345678901234567890abcdef1234567890abcdef123456789a",
+    "metrics": {
+      "esgScore": 76,
+      "carbonEmissions": 2100.9,
+      "energyConsumption": 3200.4,
+      "wasteGenerated": 68.5,
+      "waterUsage": 2500.1,
+      "renewableEnergy": 42
+    }
+  },
+  {
+    "Id": 4,
+    "companyName": "Renewable Solutions Inc",
+    "reportType": "GRI",
+    "timestamp": 1701216000000,
+    "status": "verified",
+    "hash": "0xd4e5f6789012345678901234567890abcdef1234567890abcdef123456789ab2",
+    "metrics": {
+      "esgScore": 94,
+      "carbonEmissions": 680.3,
+      "energyConsumption": 1560.2,
+      "wasteGenerated": 28.1,
+      "waterUsage": 1200.8,
+      "renewableEnergy": 85
+    }
+  },
+  {
+    "Id": 5,
+    "companyName": "Clean Energy Corp",
+    "reportType": "SASB",
+    "timestamp": 1700611200000,
+    "status": "draft",
+    "hash": "0xe5f6789012345678901234567890abcdef1234567890abcdef123456789ab23c",
+    "metrics": {
+      "esgScore": 81,
+      "carbonEmissions": 1420.7,
+      "energyConsumption": 2680.9,
+      "wasteGenerated": 55.4,
+      "waterUsage": 1950.6,
+      "renewableEnergy": 58
+    }
+  },
+  {
+    "Id": 6,
+    "companyName": "Sustainable Textiles Group",
+    "reportType": "GRI",
+    "timestamp": 1700006400000,
+    "status": "verified",
+    "hash": "0xf6789012345678901234567890abcdef1234567890abcdef123456789ab23cd4",
+    "metrics": {
+      "esgScore": 79,
+      "carbonEmissions": 1680.4,
+      "energyConsumption": 2890.7,
+      "wasteGenerated": 72.3,
+      "waterUsage": 2200.5,
+      "renewableEnergy": 48
+    }
+  }
+]
