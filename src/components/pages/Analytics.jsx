@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react"
-import Card from "@/components/atoms/Card"
-import Button from "@/components/atoms/Button"
-import Badge from "@/components/atoms/Badge"
-import Loading from "@/components/ui/Loading"
-import Error from "@/components/ui/Error"
-import ApperIcon from "@/components/ApperIcon"
-import { getAnalyticsData } from "@/services/api/analyticsService"
-import Chart from "react-apexcharts"
+import React, { useEffect, useState } from "react";
+import Chart from "react-apexcharts";
+import { getAnalyticsData } from "@/services/api/analyticsService";
+import ApperIcon from "@/components/ApperIcon";
+import Loading from "@/components/ui/Loading";
+import Error from "@/components/ui/Error";
+import Dashboard from "@/components/pages/Dashboard";
+import Badge from "@/components/atoms/Badge";
+import Button from "@/components/atoms/Button";
+import Card from "@/components/atoms/Card";
 
 const Analytics = () => {
   const [analyticsData, setAnalyticsData] = useState(null)
@@ -35,19 +36,16 @@ const Analytics = () => {
   if (error) return <Error message={error} onRetry={loadAnalyticsData} />
   if (!analyticsData) return null
 
-  // ESG Score Chart
+// ESG Score Chart
   const esgScoreOptions = {
     chart: { type: 'line', height: 300, toolbar: { show: false } },
-    colors: ['#2E7D32', '#1565C0', '#FF6F00'],
+    colors: ['#4CAF50', '#2196F3', '#FF9800'],
     stroke: { curve: 'smooth', width: 3 },
-    dataLabels: { enabled: false },
     xaxis: {
       categories: analyticsData.esgTrend.categories,
       labels: { style: { colors: '#64748B' } }
     },
     yaxis: {
-      min: 0,
-      max: 100,
       labels: { style: { colors: '#64748B' } }
     },
     grid: { borderColor: '#E2E8F0', strokeDashArray: 4 },

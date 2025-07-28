@@ -37,17 +37,17 @@ const Dashboard = () => {
   useEffect(() => {
     loadDashboardData()
   }, [])
+useEffect(() => {
+    loadDashboardData()
+  }, [])
 
-  if (loading) return <Loading />
+  if (loading) return <Loading type="cards" />
   if (error) return <Error message={error} onRetry={loadDashboardData} />
 
-  // Chart configuration
   const chartOptions = {
     chart: {
       type: 'area',
       height: 350,
-      toolbar: { show: false },
-      background: 'transparent'
     },
     colors: ['#2E7D32', '#1565C0', '#FF6F00'],
     dataLabels: { enabled: false },
