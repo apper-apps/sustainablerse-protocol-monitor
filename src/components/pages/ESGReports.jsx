@@ -24,6 +24,7 @@ const ESGReports = () => {
 const [formData, setFormData] = useState({
     companyName: "",
     reportType: "GRI",
+    ratingMethodology: "MSCI", // New field for rating methodology focus
     // Environmental Metrics
     carbonEmissions: "",
     energyConsumption: "",
@@ -85,6 +86,7 @@ const [formData, setFormData] = useState({
 setFormData({
         companyName: "",
         reportType: "GRI",
+        ratingMethodology: "MSCI",
         // Environmental Metrics
         carbonEmissions: "",
         energyConsumption: "",
@@ -188,7 +190,7 @@ setFormData({
               
               <div className="space-y-1">
                 <label className="block text-sm font-medium text-gray-700">Report Type</label>
-                <select
+<select
                   value={formData.reportType}
                   onChange={(e) => setFormData(prev => ({ ...prev, reportType: e.target.value }))}
                   className="flex h-10 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
@@ -196,6 +198,25 @@ setFormData({
                   <option value="GRI">GRI Standards</option>
                   <option value="SASB">SASB Standards</option>
                   <option value="TCFD">TCFD Framework</option>
+                  <option value="MSCI">MSCI ESG Rating</option>
+                  <option value="SP">S&P ESG Score</option>
+                </select>
+              </div>
+
+              {/* Rating Methodology Focus */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Rating Methodology Focus
+                  <span className="text-red-500 ml-1">*</span>
+                </label>
+                <select
+                  value={formData.ratingMethodology}
+                  onChange={(e) => setFormData(prev => ({ ...prev, ratingMethodology: e.target.value }))}
+                  className="flex h-10 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  required
+                >
+                  <option value="MSCI">MSCI ESG Rating (AAA to CCC)</option>
+                  <option value="SP">S&P Global ESG Score (0-100)</option>
                 </select>
               </div>
             </div>
@@ -404,9 +425,31 @@ setFormData({
                 Create & Submit to Blockchain
               </Button>
             </div>
-          </form>
+</form>
         </Card>
       )}
+
+      {/* Rating Methodology Info */}
+      <Card className="mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
+        <div className="p-6">
+          <div className="flex items-center mb-4">
+            <ApperIcon name="TrendingUp" className="w-5 h-5 text-blue-600 mr-2" />
+            <h3 className="text-lg font-semibold text-blue-900">ESG Rating Methodologies for Green Finance</h3>
+          </div>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="bg-white p-4 rounded-lg border border-blue-100">
+              <h4 className="font-semibold text-blue-800 mb-2">MSCI ESG Rating</h4>
+              <p className="text-sm text-gray-600 mb-2">Scale: CCC to AAA (7 levels)</p>
+              <p className="text-xs text-gray-500">Widely used by institutional investors for sustainable investment decisions and green bond eligibility.</p>
+            </div>
+            <div className="bg-white p-4 rounded-lg border border-blue-100">
+              <h4 className="font-semibold text-blue-800 mb-2">S&P Global ESG Score</h4>
+              <p className="text-sm text-gray-600 mb-2">Scale: 0-100 points</p>
+              <p className="text-xs text-gray-500">Used by banks and financial institutions for green finance criteria and sustainability-linked loans.</p>
+            </div>
+          </div>
+        </div>
+      </Card>
 
       {/* Reports Grid */}
       {filteredReports.length === 0 ? (
@@ -447,9 +490,19 @@ setFormData({
                 </div>
                 
                 <div className="flex items-center text-sm">
-                  <ApperIcon name="BarChart3" className="w-4 h-4 text-gray-400 mr-2" />
+<ApperIcon name="BarChart3" className="w-4 h-4 text-gray-400 mr-2" />
                   <span className="text-gray-600">ESG Score: {report.metrics.esgScore}</span>
                 </div>
+                
+                {/* Rating Methodology Score */}
+                {report.ratingAnalysis && (
+                  <div className="flex items-center mb-2">
+                    <ApperIcon name="Award" className="w-4 h-4 text-blue-500 mr-2" />
+                    <span className="text-gray-600">
+                      {report.ratingAnalysis.methodology} Rating: {report.ratingAnalysis.currentRating}
+                    </span>
+                  </div>
+                )}
                 
                 <div className="flex items-center text-sm">
                   <ApperIcon name="Zap" className="w-4 h-4 text-gray-400 mr-2" />
@@ -459,12 +512,41 @@ setFormData({
                 </div>
               </div>
 
-              {report.status === 'verified' && (
+{report.status === 'verified' && (
                 <div className="flex items-center space-x-2 mb-4 p-2 bg-green-50 rounded-lg">
                   <ApperIcon name="Shield" className="w-4 h-4 text-green-600" />
                   <span className="text-sm font-medium text-green-800">
                     Blockchain Verified
                   </span>
+                </div>
+              )}
+
+              {/* Rating Improvement Recommendations */}
+              {report.ratingAnalysis?.recommendations && (
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg p-4 mb-4">
+                  <div className="flex items-center mb-3">
+                    <ApperIcon name="Lightbulb" className="w-5 h-5 text-green-600 mr-2" />
+                    <h4 className="font-semibold text-green-800">Green Finance Rating Recommendations</h4>
+                  </div>
+                  
+                  <div className="mb-3">
+                    <p className="text-sm text-gray-700 mb-2">
+                      <strong>Current {report.ratingAnalysis.methodology} Rating:</strong> {report.ratingAnalysis.currentRating}
+                    </p>
+                    <p className="text-sm text-gray-700 mb-3">
+                      <strong>Potential Rating with Improvements:</strong> {report.ratingAnalysis.potentialRating}
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h5 className="font-medium text-green-800 text-sm">Priority Improvements:</h5>
+                    {report.ratingAnalysis.recommendations.map((rec, index) => (
+                      <div key={index} className="flex items-start space-x-2">
+                        <ApperIcon name="ArrowRight" className="w-3 h-3 text-green-600 mt-1 flex-shrink-0" />
+                        <p className="text-sm text-gray-700">{rec}</p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
 
