@@ -77,14 +77,13 @@ hash: `0x${Math.random().toString(16).substring(2, 66)}`,
       complianceViolations: parseInt(reportData.complianceViolations),
       transparencyScore: parseFloat(reportData.transparencyScore),
       auditFrequency: parseInt(reportData.auditFrequency),
-      stakeholderEngagement: parseFloat(reportData.stakeholderEngagement)
+stakeholderEngagement: parseFloat(reportData.stakeholderEngagement)
     }
-}
   }
   
   reports.push(newReport)
   return newReport
-
+}
 // Calculate rating methodology specific analysis and recommendations
 const calculateRatingMethodology = (reportData, envScore, socialScore, govScore) => {
   const methodology = reportData.ratingMethodology || 'MSCI'
@@ -206,11 +205,10 @@ const calculateSPRating = (reportData, envScore, socialScore, govScore) => {
   return {
     methodology: 'S&P Global',
     currentRating: `${currentRating}/100`,
-    potentialRating: `${potentialScore}/100`,
+potentialRating: `${potentialScore}/100`,
     recommendations: recommendations.slice(0, 4) // Top 4 recommendations
-recommendations: recommendations.slice(0, 4) // Top 4 recommendations
   }
-
+}
 export const updateESGReport = async (id, updateData) => {
   await addDelay(500)
   
