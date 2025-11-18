@@ -1,8 +1,7 @@
-import React, { Suspense, lazy } from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import React, { Suspense, lazy } from "react";
+import { createBrowserRouter } from "react-router-dom";
 
 // Lazy load all page components
-const Layout = lazy(() => import("@/components/pages/Layout"));
 const Dashboard = lazy(() => import("@/components/pages/Dashboard"));
 const ESGReports = lazy(() => import("@/components/pages/ESGReports"));
 const Marketplace = lazy(() => import("@/components/pages/Marketplace"));
@@ -10,6 +9,7 @@ const SupplyChain = lazy(() => import("@/components/pages/SupplyChain"));
 const Analytics = lazy(() => import("@/components/pages/Analytics"));
 const Settings = lazy(() => import("@/components/pages/Settings"));
 const NotFound = lazy(() => import("@/components/pages/NotFound"));
+const Layout = lazy(() => import("@/components/pages/Layout"));
 
 // Loading fallback component
 const LoadingFallback = () => (

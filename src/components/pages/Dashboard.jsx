@@ -34,12 +34,9 @@ const Dashboard = () => {
     }
   }
 
-  useEffect(() => {
-    loadDashboardData()
-  }, [])
 useEffect(() => {
-    loadDashboardData()
-  }, [])
+  loadDashboardData()
+}, [])
 
   if (loading) return <Loading type="cards" />
   if (error) return <Error message={error} onRetry={loadDashboardData} />
@@ -200,38 +197,41 @@ useEffect(() => {
       <Card className="p-6">
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <Button
-            variant="primary"
-            icon="FileText"
-            className="justify-start h-auto p-4"
-          >
-            <div className="text-left">
-              <div className="font-medium">Create ESG Report</div>
-              <div className="text-sm opacity-90">Submit new sustainability data</div>
-            </div>
-          </Button>
-          
-          <Button
-            variant="secondary"
-            icon="Store"
-            className="justify-start h-auto p-4"
-          >
-            <div className="text-left">
-              <div className="font-medium">Browse Marketplace</div>
-              <div className="text-sm opacity-90">Buy or sell carbon credits</div>
-            </div>
-          </Button>
-          
-          <Button
-            variant="accent"
-            icon="Package"
-            className="justify-start h-auto p-4"
-          >
-            <div className="text-left">
-              <div className="font-medium">Track Shipment</div>
-              <div className="text-sm opacity-90">Monitor supply chain</div>
-            </div>
-          </Button>
+<Button
+          variant="primary"
+          icon="FileText"
+          className="justify-start h-auto p-4"
+          onClick={() => window.location.href = '/reports'}
+        >
+          <div className="text-left">
+            <div className="font-medium">Create ESG Report</div>
+            <div className="text-sm opacity-90">Submit new sustainability data</div>
+          </div>
+        </Button>
+        
+        <Button
+          variant="secondary"
+          icon="Store"
+          className="justify-start h-auto p-4"
+          onClick={() => window.location.href = '/marketplace'}
+        >
+          <div className="text-left">
+            <div className="font-medium">Browse Marketplace</div>
+            <div className="text-sm opacity-90">Buy or sell carbon credits</div>
+          </div>
+        </Button>
+        
+        <Button
+          variant="accent"
+          icon="Package"
+          className="justify-start h-auto p-4"
+          onClick={() => window.location.href = '/supply-chain'}
+        >
+          <div className="text-left">
+            <div className="font-medium">Track Shipment</div>
+            <div className="text-sm opacity-90">Monitor supply chain</div>
+          </div>
+        </Button>
         </div>
       </Card>
     </div>
