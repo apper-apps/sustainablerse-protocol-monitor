@@ -1,10 +1,10 @@
-import React, { useState } from "react"
-import { Outlet } from "react-router-dom"
-import Sidebar from "@/components/organisms/Sidebar"
-import Header from "@/components/organisms/Header"
+import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
+import Sidebar from "@/components/organisms/Sidebar";
+import Header from "@/components/organisms/Header";
 
 const Layout = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -19,11 +19,11 @@ const Layout = () => {
         <Header onMenuClick={() => setSidebarOpen(true)} />
         
         <main className="p-6">
-          <Outlet />
+          <Outlet context={{ sidebarOpen, setSidebarOpen }} />
         </main>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Layout
+export default Layout;
