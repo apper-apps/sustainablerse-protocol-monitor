@@ -1,6 +1,35 @@
 import esgReportsData from "@/services/mockData/esgReports.json";
 import { addDelay } from "@/services/api/apiUtils";
 
+// Company data auto-population service
+export const fetchCompanyData = async (companyName) => {
+  const { ApperClient } = window.ApperSDK;
+  
+  const apperClient = new ApperClient({
+    apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+    apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+  });
+
+  try {
+    const result = await apperClient.functions.invoke(import.meta.env.VITE_COMPANY_DATA_LOOKUP, {
+      body: JSON.stringify({ companyName }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!result.success) {
+      console.info(`apper_info: Got an error in this function: ${import.meta.env.VITE_COMPANY_DATA_LOOKUP}. The response body is: ${JSON.stringify(result)}.`);
+      throw new Error(result.error || 'Failed to fetch company data');
+    }
+
+    return result.data;
+  } catch (error) {
+    console.info(`apper_info: Got this error an this function: ${import.meta.env.VITE_COMPANY_DATA_LOOKUP}. The error is: ${error.message}`);
+    throw error;
+  }
+};
+
 let reports = [...esgReportsData]
 
 export const getESGReports = async () => {

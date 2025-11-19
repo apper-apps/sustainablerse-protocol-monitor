@@ -8,18 +8,18 @@ import Loading from "@/components/ui/Loading"
 import Error from "@/components/ui/Error"
 import Empty from "@/components/ui/Empty"
 import ApperIcon from "@/components/ApperIcon"
-import { getESGReports, createESGReport } from "@/services/api/esgService"
+import { getESGReports, createESGReport, fetchCompanyData } from "@/services/api/esgService"
 import { format } from "date-fns"
 import { toast } from "react-toastify"
-
 const ESGReports = () => {
   const [reports, setReports] = useState([])
   const [filteredReports, setFilteredReports] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState("")
   const [searchTerm, setSearchTerm] = useState("")
-  const [showCreateForm, setShowCreateForm] = useState(false)
+const [showCreateForm, setShowCreateForm] = useState(false)
   const [creating, setCreating] = useState(false)
+  const [autoPopulating, setAutoPopulating] = useState(false)
   
 const [formData, setFormData] = useState({
     companyName: "",
@@ -46,6 +46,32 @@ const [formData, setFormData] = useState({
     auditFrequency: "",
     stakeholderEngagement: ""
   })
+
+  const handleAutoPopulate = async () => {
+    if (!formData.companyName.trim()) {
+      toast.error("Please enter a company name first")
+      return
+    }
+    
+    try {
+      setAutoPopulating(true)
+      toast.info("Fetching company data from public sources...")
+      
+      const companyData = await fetchCompanyData(formData.companyName)
+      
+      setFormData(prev => ({
+        ...prev,
+        ...companyData
+      }))
+      
+      toast.success("Company data populated successfully! Review and modify as needed.")
+    } catch (error) {
+      toast.error("Failed to fetch company data. Please enter manually or try again.")
+      console.error('Auto-populate error:', error)
+    } finally {
+      setAutoPopulating(false)
+    }
+  }
 
   const loadReports = async () => {
     try {
@@ -181,43 +207,60 @@ setFormData({
 <form onSubmit={handleCreateReport} className="space-y-6">
             {/* Company Information */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input
-                label="Company Name"
-                value={formData.companyName}
-                onChange={(e) => setFormData(prev => ({ ...prev, companyName: e.target.value }))}
-                required
-              />
-              
-              <div className="space-y-1">
-                <label className="block text-sm font-medium text-gray-700">Report Type</label>
-<select
-                  value={formData.reportType}
-                  onChange={(e) => setFormData(prev => ({ ...prev, reportType: e.target.value }))}
-                  className="flex h-10 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                >
-                  <option value="GRI">GRI Standards</option>
-                  <option value="SASB">SASB Standards</option>
-                  <option value="TCFD">TCFD Framework</option>
-                  <option value="MSCI">MSCI ESG Rating</option>
-                  <option value="SP">S&P ESG Score</option>
-                </select>
-              </div>
-
-              {/* Rating Methodology Focus */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Rating Methodology Focus
-                  <span className="text-red-500 ml-1">*</span>
-                </label>
-                <select
-                  value={formData.ratingMethodology}
-                  onChange={(e) => setFormData(prev => ({ ...prev, ratingMethodology: e.target.value }))}
-                  className="flex h-10 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              <div className="space-y-4">
+                <Input
+                  label="Company Name"
+                  value={formData.companyName}
+                  onChange={(e) => setFormData(prev => ({ ...prev, companyName: e.target.value }))}
                   required
+                />
+                
+                {/* Auto-populate button */}
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleAutoPopulate}
+                  loading={autoPopulating}
+                  disabled={!formData.companyName.trim() || autoPopulating}
+                  icon="Zap"
+                  className="w-full"
                 >
-                  <option value="MSCI">MSCI ESG Rating (AAA to CCC)</option>
-                  <option value="SP">S&P Global ESG Score (0-100)</option>
-                </select>
+                  {autoPopulating ? "Fetching Company Data..." : "Auto-Populate from Public Data"}
+                </Button>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="space-y-1">
+                  <label className="block text-sm font-medium text-gray-700">Report Type</label>
+<select
+                    value={formData.reportType}
+                    onChange={(e) => setFormData(prev => ({ ...prev, reportType: e.target.value }))}
+                    className="flex h-10 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  >
+                    <option value="GRI">GRI Standards</option>
+                    <option value="SASB">SASB Standards</option>
+                    <option value="TCFD">TCFD Framework</option>
+                    <option value="MSCI">MSCI ESG Rating</option>
+                    <option value="SP">S&P ESG Score</option>
+                  </select>
+                </div>
+
+                {/* Rating Methodology Focus */}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Rating Methodology Focus
+                    <span className="text-red-500 ml-1">*</span>
+                  </label>
+                  <select
+                    value={formData.ratingMethodology}
+                    onChange={(e) => setFormData(prev => ({ ...prev, ratingMethodology: e.target.value }))}
+                    className="flex h-10 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    required
+                  >
+                    <option value="MSCI">MSCI ESG Rating (AAA to CCC)</option>
+                    <option value="SP">S&P Global ESG Score (0-100)</option>
+                  </select>
+                </div>
               </div>
             </div>
 
